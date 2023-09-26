@@ -20,7 +20,7 @@
           {% endfor %}
         </div>
          {% if pr_d %}
-            <a class="button button-primary" href="/books/{{ pr_d.pub_date|date:"Y-m-d" }}/"><{{ pr_d.pub_date|date:"Y-m-d"}}</a>
+            <a class="button button-primary" href="/books/{{ pr_d.pub_date|date:"Y-m-d" }}/"><{{ pr_d.pub_date|date:"Y-m-d" }}</a>
          {% endif %}
             <a hidden class="button disabled" href="">{{ page.number }}</a>
          {% if next_d %}
