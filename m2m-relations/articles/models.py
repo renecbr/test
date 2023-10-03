@@ -22,7 +22,6 @@ class Tag(models.Model):
     class Meta:
         verbose_name = 'Тэг'
         verbose_name_plural = 'Тэги'
-        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -32,3 +31,6 @@ class Scope(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='scopes', default="")
     tag = models.ForeignKey(Tag, on_delete=models.CASCADE, related_name='scopes', default="")
     is_main = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['is_main', 'tag']
