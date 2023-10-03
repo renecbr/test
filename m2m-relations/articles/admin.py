@@ -11,20 +11,21 @@ class ScopeInlineFormset(BaseInlineFormSet):
         for form in self.forms:
             # В form.cleaned_data будет словарь с данными
             # каждой отдельной формы, которые вы можете проверить
-            if 'is_main' in form.cleaned_data:
-                if form.cleaned_data['is_main']:
-                    count += 1
-                if count == 0:
-                    raise ValidationError('Укажите основной раздел')
-                if count == 1:
-                    pass
-                if count > 1:
-                    raise ValidationError('Основным может быть только один раздел')
+            #if 'is_main' in form.cleaned_data:
+            if form.cleaned_data.get('is_main'):
+                count += 1
+        if count == 0:
+            raise ValidationError('Укажите основной раздел')
+        elif count > 1:
+            raise ValidationError('Основным может быть только один раздел')
+        else:
+            return super().clean()
+
             # вызовом исключения ValidationError можно указать админке о наличие ошибки
             # таким образом объект не будет сохранен,
             # а пользователю выведется соответствующее сообщение об ошибке
 
-        return super().clean()  # вызываем базовый код переопределяемого метода
+            # вызываем базовый код переопределяемого метода
 
 
 class ScopeInline(admin.TabularInline):
