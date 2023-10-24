@@ -27,10 +27,6 @@ def student_factory():
     return factory
 
 
-def test_example():
-    assert True, "Just test example"
-
-
 @pytest.mark.django_db
 def test_get_first_course(client, course_factory):
     courses = course_factory(_quantity=10)
@@ -80,7 +76,8 @@ def test_create_course(client):
 @pytest.mark.django_db
 def test_update_course(client, course_factory):
     courses = course_factory(_quantity=10)
-    response = client.patch('/api/v1/courses/1/', data={'name': 'course2'})
+    id = courses[0].id
+    response = client.patch('/api/v1/courses/' + str(id) + '/', data={'name': 'course2'})
     assert response.status_code == 200
     data = response.json()
     if data['id'] == 1:
@@ -90,7 +87,7 @@ def test_update_course(client, course_factory):
 @pytest.mark.django_db
 def test_delete_course(client, course_factory):
     courses = course_factory(_quantity=10)
-    response = client.delete('/api/v1/courses/1/')
-    #assert response.status_code == 404
+    id = courses[0].id
+    response = client.delete('/api/v1/courses/' + str(id) + '/')
     assert response.status_code == 204
 
