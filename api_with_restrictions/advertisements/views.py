@@ -18,7 +18,7 @@ class AdvertisementViewSet(ModelViewSet):
     # TODO: настройте ViewSet, укажите атрибуты для кверисета,
     #   сериализаторов и фильтров
     def get_queryset(self):
-        if self.request.user.is_authenticated is True:
+        if self.request.user.is_authenticated:
             return Advertisement.objects.all().filter(creator=self.request.user) |\
                    Advertisement.objects.all().exclude(status='DRAFT')
 
